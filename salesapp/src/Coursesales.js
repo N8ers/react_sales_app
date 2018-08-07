@@ -23,18 +23,38 @@ class Coursesales extends Component {
         return(
             <div>
                 <h1>You can buy coures: </h1>
-                <div id="courses">{courses}</div>
+                <div id="courses">
+                    {courses}
+                </div>
                 <p id="total">total <b>{this.state.total}</b></p>
             </div>
-        )
+        );
     }
 }
 
+
+
 class Course extends Component {
+
+    clicker(){
+        var active = !this.state.active;
+        this.setState({active: active});
+        this.props.sumPrice(active ? this.props.price : -this.props.price);
+    }
+
+    constructor(props){
+        super(props);
+
+        this.state = {
+            active: false
+        };
+
+        this.clicker = this.clicker.bind(this);
+    }
     render(){
         return(
             <div>
-
+                <p className={ this.state.active ? 'active' : '' } onClick={this.clicker}>{this.props.name} <b>{this.props.price}</b></p>
             </div>
         )
     }
